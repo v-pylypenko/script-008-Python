@@ -5,6 +5,7 @@ import requests
 import csv
 import re
 
+
 class CurrencyService:
 
     @staticmethod
@@ -35,7 +36,9 @@ class CurrencyService:
                 if row:
                     for currency in currencies:
                         if row.__getitem__(1).__contains__(currency):
-                            result.append(Currency(row.__getitem__(0), row.__getitem__(1), row.__getitem__(2), row.__getitem__(3), row.__getitem__(4), row.__getitem__(5)))
+                            result.append(
+                                Currency(row.__getitem__(0), row.__getitem__(1), row.__getitem__(2), row.__getitem__(3),
+                                         row.__getitem__(4), row.__getitem__(5)))
             file.close()
         else:
             print("-----------------------DO HTTP REQUEST------------------------------")
@@ -48,7 +51,8 @@ class CurrencyService:
             writer = csv.writer(file)
             writer.writerow(header)
             for currency in data.currencies:
-                row = [currency.numeric_code, currency.alpha_code, currency.quantity, currency.text, currency.value, currency.base_value]
+                row = [currency.numeric_code, currency.alpha_code, currency.quantity, currency.text, currency.value,
+                       currency.base_value]
                 writer.writerow(row)
                 if currencies.__contains__(currency.alpha_code):
                     result.append(currency)

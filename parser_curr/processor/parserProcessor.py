@@ -4,18 +4,18 @@ from parser_curr.domain.parserResponce import ParserResponse
 from parser_curr.domain.currency import Currency
 
 
+def get_pattern():
+    return re.compile(
+        r'[\s]+<tr>[\r\n]+[\s]+<td>(\d{3})</td>[\r\n]+[\s]+<td>([A-Z]{3})</td>[\r\n]+[\s]+<td>(\d+)</td>'
+        r'[\r\n]+[\s]+<td>([А-Яа-я ]+)</td>[\r\n]+[\s]+<td>([0-9,]+)</td>[\r\n]+[\s]+</tr>')
+
 
 class Parser:
     def __init__(self, text):
         self.text = text
 
-    def get_pattern(self):
-        return re.compile(
-            r'[\s]+<tr>[\r\n]+[\s]+<td>(\d{3})</td>[\r\n]+[\s]+<td>([A-Z]{3})</td>[\r\n]+[\s]+<td>(\d+)</td>'
-            r'[\r\n]+[\s]+<td>([А-Яа-я ]+)</td>[\r\n]+[\s]+<td>([0-9,]+)</td>[\r\n]+[\s]+</tr>')
-
     def get_curr_info(self):
-        pattern = self.get_pattern()
+        pattern = get_pattern()
 
         currencies = []
 
