@@ -1,11 +1,13 @@
-from parser_curr.parser import Parser
-import requests
+from parser_curr.service.currencyService import CurrencyService
 import logging
+
+logging.basicConfig(level=logging.INFO)
 
 def main():
     try:
-        print(Parser(text=requests.get("http://www.cbr.ru/currency_base/daily/?UniDbQuery.Posted=True&UniDbQuery.To=13.12.2021").text, currencies="USD,HKD").get_curr_info())
-
+        currencies = CurrencyService.getCurrencyByDate(date="13.12.2021", currencies="USD,HKD")
+        for currency in currencies:
+            print(currency.alpha_code + ' ' + currency.value)
     except Exception as err:
         logging.error(err)
 
